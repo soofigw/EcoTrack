@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    tools:context=".RegistroHogarActivity"> <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Registrar Hábito de Hogar"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    android:textColor="@color/verde_principal_oscuro"
+    android:layout_marginBottom="32dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¡Buen trabajo! Selecciona la acción sostenible que realizaste hoy."
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@color/gris_oscuro_texto"
+        android:layout_marginBottom="32dp"/>
+
+    <Button
+        android:id="@+id/btn_registrar_reciclaje"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Reciclé"
+        android:textSize="18sp"
+        android:backgroundTint="@color/azul_turquesa"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_registrar_electricidad"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Reduje Consumo Eléctrico"
+        android:textSize="18sp"
+        android:backgroundTint="@color/azul_turquesa"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_registrar_plastico"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Evité Plásticos de un solo uso"
+        android:textSize="18sp"
+        android:backgroundTint="@color/verde_acento"
+        android:textColor="@color/gris_oscuro_texto"
+        android:layout_marginBottom="16dp"/>
+
+</LinearLayout>

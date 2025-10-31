@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="verde_principal_oscuro">#005F60</color>
+    <color name="verde_acento">#A7E00B</color>
+    <color name="azul_turquesa">#3A9D9C</color>
+    <color name="lila_acento">#9B59B6</color>
+    <color name="blanco">#FFFFFF</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="gris_claro_fondo">#f0f0f0</color>
+    <color name="gris_oscuro_texto">#333333</color>
+</resources>

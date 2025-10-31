@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        tools:context=".RegistroViajeActivity"> <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar un Viaje"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/verde_principal_oscuro"
+        android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distancia (km)"
+            android:textSize="16sp"
+            android:textColor="@color/gris_oscuro_texto"/>
+
+        <EditText
+            android:id="@+id/edit_distancia"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="numberDecimal"
+            android:hint="Ej. 10.5"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vehículo que Usaste"
+            android:textSize="16sp"
+            android:textColor="@color/gris_oscuro_texto"/>
+
+        <Spinner
+            android:id="@+id/spinner_vehiculo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pasajeros (incluyéndote)"
+            android:textSize="16sp"
+            android:textColor="@color/gris_oscuro_texto"/>
+
+        <EditText
+            android:id="@+id/edit_pasajeros"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="number"
+            android:hint="Ej. 1"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/btn_registrar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Registrar Viaje"
+            android:backgroundTint="@color/verde_principal_oscuro"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/text_resultado_real"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+            android:padding="12dp"
+            android:background="@color/gris_claro_fondo"/>
+
+        <TextView
+            android:id="@+id/text_recomendacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="12dp"
+            android:background="@color/gris_claro_fondo"/>
+
+    </LinearLayout>
+</ScrollView>

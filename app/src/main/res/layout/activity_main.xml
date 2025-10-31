@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EcoTrack"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/verde_principal_oscuro"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Progreso Semanal (Hogar vs. Transporte)"
+        android:textSize="18sp"
+        android:textColor="@color/gris_oscuro_texto"
+        android:layout_marginTop="16dp"/>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desafío Semanal"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/verde_principal_oscuro"/>
+
+    <TextView
+        android:id="@+id/text_desafio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¡Registra 3 hábitos de 'Reciclar' esta semana!"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:gravity="center"
+        android:background="@color/gris_claro_fondo"
+        android:textColor="@color/gris_oscuro_texto"
+        android:layout_marginTop="8dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/btn_registrar_viaje"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Registrar Viaje (Transporte)"
+            android:backgroundTint="@color/verde_principal_oscuro"
+            android:textColor="@color/white"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_registrar_hogar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Registrar Hábito de Hogar"
+            android:backgroundTint="@color/azul_turquesa"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</LinearLayout>
