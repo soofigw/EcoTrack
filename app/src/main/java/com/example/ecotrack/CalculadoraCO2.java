@@ -29,11 +29,11 @@ public class CalculadoraCO2 {
     // calcula el impacto de CO2 de un viaje específico
     public double calcularImpactoViaje(String vehiculo, double km) {
         switch (vehiculo) {
-            case "Auto (Gasolina)":
+            case "Auto":
                 return km * FACTOR_AUTO_GASOLINA;
             case "Transporte Público":
                 return km * FACTOR_TRANSPORTE_PUBLICO;
-            case "Motocicleta":
+            case "Moto":
                 return km * FACTOR_MOTO;
             case "Bicicleta":
             case "Caminar":
@@ -80,7 +80,7 @@ public class CalculadoraCO2 {
         }
 
         //si se uso auto o moto, la recom es el transporte publico
-        if (vehiculoActual.equals("Auto (Gasolina)") || vehiculoActual.equals("Motocicleta")) {
+        if (vehiculoActual.equals("Auto") || vehiculoActual.equals("Moto")) {
             impactoAlternativo = calcularImpactoViaje("Transporte Público", km);
             nombreAlternativo = "Transporte Público";
         } else {
@@ -98,7 +98,7 @@ public class CalculadoraCO2 {
         String altFormateada = String.format("%.2f", impactoAlternativo);
 
         if (ahorro > 0) {
-            return String.format("Tu viaje generó %.2f kg de CO2. ¡Usando %s para este viaje generarias tan solo %.2f kg (un ahorro de %.2f kg)!",
+            return String.format("Tu viaje generó %.2f kg de CO2. ¡Usando %s para este viaje generarias %.2f kg (un ahorro de %.2f kg)!",
                     impactoActual, nombreAlternativo, impactoAlternativo, ahorro);
         } else {
             return String.format("¡Buen trabajo! Tu viaje generó %.2f kg de CO2.", impactoActual);
