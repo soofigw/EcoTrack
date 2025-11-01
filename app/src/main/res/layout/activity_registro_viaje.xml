@@ -36,6 +36,7 @@
             android:layout_height="48dp"
             android:inputType="numberDecimal"
             android:hint="..."
+            android:textColor="@color/gris_oscuro_texto"
             android:layout_marginBottom="8dp"/>
 
         <TextView
@@ -50,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medio de trasnporte"
+            android:text="Medio de transporte"
             android:textSize="16sp"
             android:textColor="@color/gris_oscuro_texto"/>
 
