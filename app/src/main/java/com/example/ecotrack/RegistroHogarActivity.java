@@ -1,12 +1,14 @@
 package com.example.ecotrack;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RegistroHogarActivity extends AppCompatActivity {
+public class RegistroHogarActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //botones
+    //vistas
     private Button btnReciclarOrganico;
     private Button btnReciclarInorganico;
     private Button btnReducirLuz;
@@ -14,12 +16,20 @@ public class RegistroHogarActivity extends AppCompatActivity {
     private Button btnEvitarBotellas;
     private Button btnEvitarBolsas;
 
+
+    private DbManager dbManager;
+    private CalculadoraCO2 calculadora;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //layout -> xml
         setContentView(R.layout.activity_registro_hogar);
 
+
+        dbManager = new DbManager(this);
+        calculadora = new CalculadoraCO2();
+
+        //conexion de las vistas con los botones
         btnReciclarOrganico = findViewById(R.id.btn_reciclar_organico);
         btnReciclarInorganico = findViewById(R.id.btn_reciclar_inorganico);
         btnReducirLuz = findViewById(R.id.btn_reducir_luz);
@@ -27,7 +37,46 @@ public class RegistroHogarActivity extends AppCompatActivity {
         btnEvitarBotellas = findViewById(R.id.btn_evitar_botellas);
         btnEvitarBolsas = findViewById(R.id.btn_evitar_bolsas);
 
-        //TODO: logica de los botones
-        //TODO: deshabilitarlos despues de un clic y mostrar un toast)
+        //listeners para los botones
+        btnReciclarOrganico.setOnClickListener(this);
+        btnReciclarInorganico.setOnClickListener(this);
+        btnReducirLuz.setOnClickListener(this);
+        btnDesconectar.setOnClickListener(this);
+        btnEvitarBotellas.setOnClickListener(this);
+        btnEvitarBolsas.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        String habitoNombre = "";
+        Button botonPresionado = (Button) v;
+
+        //obtiene el nombre del boton presionadp
+        if (v.getId() == R.id.btn_reciclar_organico) {
+            habitoNombre = "Reciclar Orgánico";
+        } else if (v.getId() == R.id.btn_reciclar_inorganico) {
+            habitoNombre = "Separar Inorgánicos";
+        } else if (v.getId() == R.id.btn_reducir_luz) {
+            habitoNombre = "Reducir Consumo (Luz)";
+        } else if (v.getId() == R.id.btn_reducir_desconectar) {
+            habitoNombre = "Desconectar Aparatos";
+        } else if (v.getId() == R.id.btn_evitar_botellas) {
+            habitoNombre = "Evitar Botellas (Termo)";
+        } else if (v.getId() == R.id.btn_evitar_bolsas) {
+            habitoNombre = "Evitar Bolsas (Tela)";
+        }
+
+
+        double co2Ahorrado = calculadora.getAhorroHabito(habitoNombre);
+
+        dbManager.insertarHabito(habitoNombre, co2Ahorrado);
+
+        String mensaje = String.format("¡Éxito! Ahorraste %.2f kg CO2", co2Ahorrado);
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+
+        //se deshabilita el boton solo en la sesion activa
+        botonPresionado.setEnabled(false);
+        botonPresionado.setText(habitoNombre + " (¡Registrado!)");
     }
 }

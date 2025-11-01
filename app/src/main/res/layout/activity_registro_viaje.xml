@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registra un Viaje 🌎︎"
+            android:text="Registra un Viaje 🚞"
             android:textSize="30sp"
             android:fontFamily="@font/stingerslimtrial_bold"
             android:textColor="@color/azuloscuro"
@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:inputType="numberDecimal"
-            android:hint="..."
+            android:textColor="@color/gris_oscuro_texto"
+            android:backgroundTint="@color/lila_oscuro"
             android:layout_marginBottom="8dp"/>
 
         <TextView
@@ -50,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medio de trasnporte"
+            android:text="Medio de transporte"
             android:textSize="16sp"
             android:textColor="@color/gris_oscuro_texto"/>
 
@@ -58,7 +59,8 @@
             android:id="@+id/spinner_vehiculo"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:background="@color/lila_acento"/>
 
         <Button
             android:id="@+id/btn_registrar"
@@ -74,6 +76,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/azuloscuro"
             android:gravity="center"
             android:layout_marginTop="32dp"
             android:padding="12dp"
@@ -83,7 +86,8 @@
             android:id="@+id/text_recomendacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="17sp"
+            android:textColor="@color/lila_oscuro"
             android:gravity="center"
             android:layout_marginTop="16dp"
             android:padding="12dp"
