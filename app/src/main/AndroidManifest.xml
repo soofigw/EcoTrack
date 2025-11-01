@@ -27,6 +27,10 @@
         </activity>
         <activity android:name=".RegistroViajeActivity" />
         <activity android:name=".RegistroHogarActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

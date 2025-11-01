@@ -1,59 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:background="@color/white"
-    android:gravity="center_horizontal"
-    tools:context=".RegistroHogarActivity"> <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Registrar Hábito de Hogar"
-    android:textSize="24sp"
-    android:textStyle="bold"
-    android:textColor="@color/verde_principal_oscuro"
-    android:layout_marginBottom="32dp"/>
+    android:background="@color/necro"
+    android:fillViewport="true">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¡Buen trabajo! Selecciona la acción sostenible que realizaste hoy."
-        android:textSize="16sp"
-        android:gravity="center"
-        android:textColor="@color/gris_oscuro_texto"
-        android:layout_marginBottom="32dp"/>
+        android:orientation="vertical"
+        android:padding="45dp"
+        android:gravity="center_horizontal"
+        tools:context=".RegistroHogarActivity">
 
-    <Button
-        android:id="@+id/btn_registrar_reciclaje"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Reciclé"
-        android:textSize="18sp"
-        android:backgroundTint="@color/azul_turquesa"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/stingerslimtrial_bold"
+            android:text="Habitos Sostenibles ♻️"
+            android:textColor="@color/azuloscuro"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btn_registrar_electricidad"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Reduje Consumo Eléctrico"
-        android:textSize="18sp"
-        android:backgroundTint="@color/azul_turquesa"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¡Buen trabajo! Selecciona la acción sostenible que realizaste hoy."
 
-    <Button
-        android:id="@+id/btn_registrar_plastico"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Evité Plásticos de un solo uso"
-        android:textSize="18sp"
-        android:backgroundTint="@color/verde_acento"
-        android:textColor="@color/gris_oscuro_texto"
-        android:layout_marginBottom="16dp"/>
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/gris_oscuro_texto"
+            android:layout_marginBottom="24dp"/>
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reciclaje"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/turquesaoscuro"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_reciclar_organico"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Reciclé Orgánicos (Composta)"
+            android:backgroundTint="@color/azul_turquesa"
+            android:textColor="@color/azuloscuro"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btn_reciclar_inorganico"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Separé Inorgánicos (PET, Cartón, etc.)"
+            android:backgroundTint="@color/azul_turquesa"
+            android:textColor="@color/azuloscuro"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consumo Eléctrico"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/lila_oscuro"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_reducir_luz"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Reduje Consumo (Apagué luces)"
+            android:backgroundTint="@color/lila_acento"
+            android:textColor="@color/azuloscuro"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btn_reducir_desconectar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Desconecté aparatos"
+            android:backgroundTint="@color/lila_acento"
+            android:textColor="@color/azuloscuro"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Plásticos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/verde_principal_oscuro"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_evitar_botellas"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Evité Botellas (Usé termo)"
+            android:backgroundTint="@color/verde_acento"
+            android:textColor="@color/gris_oscuro_texto"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btn_evitar_bolsas"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Evité Bolsas (Usé de tela)"
+            android:backgroundTint="@color/verde_acento"
+            android:textColor="@color/gris_oscuro_texto"
+            android:layout_marginBottom="12dp"/>
+
+    </LinearLayout>
+</ScrollView>

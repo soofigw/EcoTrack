@@ -6,22 +6,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class RegistroHogarActivity extends AppCompatActivity {
 
-    //vistas
-    private Button btnReciclaje;
-    private Button btnElectricidad;
-    private Button btnPlastico;
+    //botones
+    private Button btnReciclarOrganico;
+    private Button btnReciclarInorganico;
+    private Button btnReducirLuz;
+    private Button btnDesconectar;
+    private Button btnEvitarBotellas;
+    private Button btnEvitarBolsas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //conexion del layout XML
+        //layout -> xml
         setContentView(R.layout.activity_registro_hogar);
 
-        //conexion vistas con findViewById
-        btnReciclaje = findViewById(R.id.btn_registrar_reciclaje);
-        btnElectricidad = findViewById(R.id.btn_registrar_electricidad);
-        btnPlastico = findViewById(R.id.btn_registrar_plastico);
+        btnReciclarOrganico = findViewById(R.id.btn_reciclar_organico);
+        btnReciclarInorganico = findViewById(R.id.btn_reciclar_inorganico);
+        btnReducirLuz = findViewById(R.id.btn_reducir_luz);
+        btnDesconectar = findViewById(R.id.btn_reducir_desconectar);
+        btnEvitarBotellas = findViewById(R.id.btn_evitar_botellas);
+        btnEvitarBolsas = findViewById(R.id.btn_evitar_bolsas);
 
-        //logica para los 3 botones
+        //TODO: logica de los botones
+        //TODO: deshabilitarlos despues de un clic y mostrar un toast)
     }
 }
