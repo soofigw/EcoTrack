@@ -16,18 +16,18 @@
 
         <ImageView
             android:id="@+id/splash_logo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ecotrack"
-            android:contentDescription="Logo de EcoTrack" />
+            android:layout_width="148dp"
+            android:layout_height="149dp"
+            android:contentDescription="Logo de EcoTrack"
+            android:src="@drawable/ecotrack" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/stingerslimtrial_bold"
             android:text="EcoTrack"
-            android:textColor="@color/white"
-            android:textSize="34sp"
-            android:textStyle="bold" />
+            android:textColor="@color/azuloscuro"
+            android:textSize="34sp" />
     </LinearLayout>
 </RelativeLayout>
