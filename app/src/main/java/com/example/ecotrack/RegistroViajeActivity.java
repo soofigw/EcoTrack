@@ -22,8 +22,6 @@ public class RegistroViajeActivity extends AppCompatActivity {
     private Button btnRegistrar;
     private TextView textResultadoReal;
     private TextView textRecomendacion;
-
-    //logica
     private DbManager dbManager;
     private CalculadoraCO2 calculadora;
 
@@ -46,7 +44,6 @@ public class RegistroViajeActivity extends AppCompatActivity {
         dbManager = new DbManager(this);
         calculadora = new CalculadoraCO2();
 
-        //conexion con lasvistas
         editDistancia = findViewById(R.id.edit_distancia);
         spinnerVehiculo = findViewById(R.id.spinner_vehiculo);
         textAbrirMaps = findViewById(R.id.text_abrir_maps);
@@ -91,7 +88,6 @@ public class RegistroViajeActivity extends AppCompatActivity {
         spinnerVehiculo.setAdapter(adapter);
     }
 
-    //registrarviaje logica
     private void setupRegistrarButton() {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +107,7 @@ public class RegistroViajeActivity extends AppCompatActivity {
 
                 double distancia = Double.parseDouble(distanciaStr);
 
-                //llama calculadora c02
+
                 double impactoReal = calculadora.calcularImpactoViaje(vehiculo, distancia);
                 String recomendacion = calculadora.getRecomendacionViaje(vehiculo, distancia);
 

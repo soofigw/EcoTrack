@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        //handler para retrasar el inicio de la main
+
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -29,7 +29,6 @@ public class SplashActivity extends AppCompatActivity {
                 Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(mainIntent);
 
-                //cierra la actividad para que el usuario no pueda "regresar" a ella
                 finish();
             }
         }, SPLASH_DURATION);

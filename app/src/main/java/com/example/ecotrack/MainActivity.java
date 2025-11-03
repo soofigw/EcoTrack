@@ -1,4 +1,5 @@
 package com.example.ecotrack;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,15 +7,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-
+//notis
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.os.Build;
+import java.util.Calendar;
+import android.content.Context;
 //imports de la grafica
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
+//anim
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -26,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private Button btnRegistrarHogar;
     private TextView textDesafio1;
     private TextView textDesafio2;
-
-    //----------
+    private Button btnVerHistorial;
     private DesafioManager desafioManager;
     private DbManager dbManager;
+    private final String CHANNEL_ID = "EcoTrackReminderChannel";
 
 
     @Override
@@ -37,9 +46,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        createNotificationChannel();
+        setupDailyReminder();
+
         //ini----
         desafioManager = new DesafioManager();
-        dbManager = new DbManager(this); // ¡Inicializamos el DbManager!
+        dbManager = new DbManager(this);
 
         //conexion de las vistas con los botones
         pieChart = findViewById(R.id.pie_chart);
@@ -47,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         btnRegistrarHogar = findViewById(R.id.btn_registrar_hogar);
         textDesafio1 = findViewById(R.id.text_desafio_1);
         textDesafio2 = findViewById(R.id.text_desafio_2);
+        btnVerHistorial = findViewById(R.id.btn_ver_historial);
+        //fade in
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        pieChart.startAnimation(fadeIn);
+        textDesafio1.startAnimation(fadeIn);
+        textDesafio2.startAnimation(fadeIn);
 
         //config
         btnRegistrarViaje.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnVerHistorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HistorialActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         cargarDesafios();
         setupPieChart();
@@ -75,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //actualiza la grafi aqui
         cargarDatosDeLaGrafica();
     }
 
@@ -107,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         double totalViajes = datos.get("viajes");
         double totalHogar = datos.get("hogar");
 
-        //entradas para la grafi
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         if (totalViajes > 0) {
@@ -117,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             entries.add(new PieEntry((float) totalHogar, "Ahorro (Hogar)"));
         }
 
-        //si aun no hay datos muestra unmensaje
         if (entries.isEmpty()) {
             pieChart.setCenterText("Aún no hay datos. ¡Registra una acción!");
             pieChart.setCenterTextSize(16f);
@@ -143,10 +166,54 @@ public class MainActivity extends AppCompatActivity {
         data.setValueTextColor(Color.BLACK);
         data.setValueFormatter(new PercentFormatter(pieChart));
 
-
-        //carga los datos
         pieChart.setCenterText("");
         pieChart.setData(data);
         pieChart.invalidate();
+    }
+
+    //canal de notificaciones
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "EcoTrack Recordatorios";
+            String description = "Canal para los recordatorios diarios de EcoTrack";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
+    //notif
+    private void setupDailyReminder() {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+
+        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        Intent intent = new Intent(this, Notification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
     }
 }
