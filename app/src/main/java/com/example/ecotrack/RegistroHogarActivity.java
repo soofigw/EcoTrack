@@ -5,18 +5,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 public class RegistroHogarActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //vistas
     private Button btnReciclarOrganico;
     private Button btnReciclarInorganico;
     private Button btnReducirLuz;
     private Button btnDesconectar;
     private Button btnEvitarBotellas;
     private Button btnEvitarBolsas;
-
-
     private DbManager dbManager;
     private CalculadoraCO2 calculadora;
 
@@ -52,7 +51,6 @@ public class RegistroHogarActivity extends AppCompatActivity implements View.OnC
         String habitoNombre = "";
         Button botonPresionado = (Button) v;
 
-        //obtiene el nombre del boton presionadp
         if (v.getId() == R.id.btn_reciclar_organico) {
             habitoNombre = "Reciclar Orgánico";
         } else if (v.getId() == R.id.btn_reciclar_inorganico) {
@@ -75,7 +73,9 @@ public class RegistroHogarActivity extends AppCompatActivity implements View.OnC
         String mensaje = String.format("¡Éxito! Ahorraste %.2f kg CO2", co2Ahorrado);
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
 
-        //se deshabilita el boton solo en la sesion activa
+        Animation popAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_pop);
+        botonPresionado.startAnimation(popAnimation);
+
         botonPresionado.setEnabled(false);
         botonPresionado.setText(habitoNombre + " (¡Registrado!)");
     }

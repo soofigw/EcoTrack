@@ -1,12 +1,15 @@
-package com.example.ecotrack; // (Asegúrate que sea tu nombre de paquete)
-
+package com.example.ecotrack;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit; // ¡Importante para el cálculo de tiempo!
+import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class DbManager {
 
@@ -24,8 +27,6 @@ public class DbManager {
     public void close() {
         dbHelper.close();
     }
-
-    // --- MÉTODOS PARA INSERTAR (Sin cambios) ---
 
     public void insertarViaje(String vehiculo, double distancia, double co2Generado) {
         open();
@@ -48,42 +49,32 @@ public class DbManager {
         close();
     }
 
-    // --- MÉTODO PARA LEER (¡Aquí está el cambio!) ---
-
-    /**
-     * Lee la BD y suma el CO2 de los ÚLTIMOS 7 DÍAS para la gráfica.
-     * @return un Mapa con el total de "viajes" y "hogar".
-     */
+    //lee la bd y suma el co2 de los ultimos 7dias paea ponerlos en la grafica
     public Map<String, Double> getProgresoSemanal() {
-        open(); // Abrimos la BD (para leer)
+        open();
 
-        // --- ¡AQUÍ ESTÁ LA LÓGICA NUEVA! ---
-        // 1. Calcular el "timestamp" de hace 7 días.
         long sieteDiasEnMilis = TimeUnit.DAYS.toMillis(7);
         long timestampHace7Dias = System.currentTimeMillis() - sieteDiasEnMilis;
 
-        // 2. Convertir el timestamp a String para la consulta SQL
         String[] selectionArgs = { String.valueOf(timestampHace7Dias) };
-        // --- FIN DE LA LÓGICA NUEVA ---
 
         double totalViajes = 0;
         double totalHogar = 0;
 
-        // 3. Sumar el CO2 de Viajes DE LOS ÚLTIMOS 7 DÍAS
+
         Cursor cursorViajes = database.rawQuery(
                 "SELECT SUM(" + EcoTrackDbHelper.COL_CO2_GENERADO + ") FROM " + EcoTrackDbHelper.TABLA_VIAJES +
-                        " WHERE " + EcoTrackDbHelper.COL_FECHA_VIAJE + " >= ?", // ¡El filtro WHERE!
-                selectionArgs // El argumento ("?") es el timestamp de hace 7 días
+                        " WHERE " + EcoTrackDbHelper.COL_FECHA_VIAJE + " >= ?",
+                selectionArgs
         );
         if (cursorViajes.moveToFirst()) {
             totalViajes = cursorViajes.getDouble(0);
         }
         cursorViajes.close();
 
-        // 4. Sumar el CO2 de Habitos DE LOS ÚLTIMOS 7 DÍAS
         Cursor cursorHabitos = database.rawQuery(
                 "SELECT SUM(" + EcoTrackDbHelper.COL_CO2_AHORRADO + ") FROM " + EcoTrackDbHelper.TABLA_HABITOS +
-                        " WHERE " + EcoTrackDbHelper.COL_FECHA_HABITO + " >= ?", // ¡El filtro WHERE!
+                        " WHERE " + EcoTrackDbHelper.COL_FECHA_HABITO + " >= ?",
                 selectionArgs
         );
         if (cursorHabitos.moveToFirst()) {
@@ -91,13 +82,55 @@ public class DbManager {
         }
         cursorHabitos.close();
 
-        close(); // Cerramos la BD
+        close();
 
-        // 5. Devolver los resultados
         Map<String, Double> resultados = new HashMap<>();
         resultados.put("viajes", totalViajes);
         resultados.put("hogar", totalHogar);
 
         return resultados;
+    }
+
+    //historial detallado lee ambas tablas y las une en una sola lista
+    public List<HistorialItem> getHistorialCompleto() {
+        List<HistorialItem> listaItems = new ArrayList<>();
+        open();
+
+        Cursor cursorViajes = database.query(EcoTrackDbHelper.TABLA_VIAJES, null, null, null, null, null, null);
+
+        while (cursorViajes.moveToNext()) {
+
+            String vehiculo = cursorViajes.getString(cursorViajes.getColumnIndexOrThrow(EcoTrackDbHelper.COL_VEHICULO));
+            double distancia = cursorViajes.getDouble(cursorViajes.getColumnIndexOrThrow(EcoTrackDbHelper.COL_DISTANCIA));
+            long fecha = cursorViajes.getLong(cursorViajes.getColumnIndexOrThrow(EcoTrackDbHelper.COL_FECHA_VIAJE));
+            double co2 = cursorViajes.getDouble(cursorViajes.getColumnIndexOrThrow(EcoTrackDbHelper.COL_CO2_GENERADO));
+
+
+            String titulo = String.format("%s (%.1f km)", vehiculo, distancia);
+            listaItems.add(new HistorialItem(titulo, fecha, co2, true));
+        }
+        cursorViajes.close();
+
+        Cursor cursorHabitos = database.query(EcoTrackDbHelper.TABLA_HABITOS, null, null, null, null, null, null);
+
+        while (cursorHabitos.moveToNext()) {
+            String titulo = cursorHabitos.getString(cursorHabitos.getColumnIndexOrThrow(EcoTrackDbHelper.COL_HABITO));
+            long fecha = cursorHabitos.getLong(cursorHabitos.getColumnIndexOrThrow(EcoTrackDbHelper.COL_FECHA_HABITO));
+            double co2 = cursorHabitos.getDouble(cursorHabitos.getColumnIndexOrThrow(EcoTrackDbHelper.COL_CO2_AHORRADO));
+
+            listaItems.add(new HistorialItem(titulo, fecha, co2, false));
+        }
+        cursorHabitos.close();
+
+        close();
+        //se ordena por el mas nuevo al inicio
+        Collections.sort(listaItems, new Comparator<HistorialItem>() {
+            @Override
+            public int compare(HistorialItem o1, HistorialItem o2) {
+                return Long.compare(o2.getFechaMillis(), o1.getFechaMillis());
+            }
+        });
+
+        return listaItems;
     }
 }

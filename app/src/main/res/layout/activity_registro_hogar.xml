@@ -13,12 +13,13 @@
         android:orientation="vertical"
         android:padding="45dp"
         android:gravity="center_horizontal"
-        tools:context=".RegistroHogarActivity">
+        android:clipChildren="false"   android:clipToPadding="false"  tools:context=".RegistroHogarActivity">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:paddingTop="20dp"
             android:fontFamily="@font/stingerslimtrial_bold"
             android:text="Habitos Sostenibles ♻️"
             android:textColor="@color/azuloscuro"
